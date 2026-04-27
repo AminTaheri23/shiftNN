@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Data / checkpoints
+*.pt
+*.pth
+*.ckpt
+data/
+*.bin
+*.npz
+*.npy
+
+# Claude settings
+.claude/
+
+# Misc
+.DS_Store
+*.log
+.env
