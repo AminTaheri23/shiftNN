@@ -114,7 +114,7 @@ def main():
 
     # ---- Model ----
     cfg = ModelConfig(
-        vocab_size=len(vocab),
+        vocab_size=len(vocab) + 1,  # +1 for UNK (id = len(vocab))
         k=args.k,
         d_model=args.d_model,
         n_heads=args.n_heads,
