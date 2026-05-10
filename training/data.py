@@ -186,7 +186,7 @@ def lookup_bitmaps(ids, bitmaps_table):
 # ---- Eval utilities ----
 
 def eval_loss_bitmap(model, ids, bitmaps_table, T, B, n_batches, device, rng,
-                     vocab_bitmaps=None):
+                     vocab_bitmaps=None, with_token_ids=False):
     """Average loss over n_batches random windows. For bitmap LM."""
     import torch
     model.eval()
@@ -201,7 +201,11 @@ def eval_loss_bitmap(model, ids, bitmaps_table, T, B, n_batches, device, rng,
                 lookup_bitmaps(input_ids, bitmaps_table).astype(np.float32),
                 device=device,
             )
-            kw = {"vocab_bitmaps": vocab_bitmaps} if vocab_bitmaps is not None else {}
+            kw = {}
+            if vocab_bitmaps is not None:
+                kw["vocab_bitmaps"] = vocab_bitmaps
+            if with_token_ids:
+                kw["token_ids"] = torch.tensor(input_ids, dtype=torch.long, device=device)
             _, loss = model(input_bitmaps, target_ids=target_ids, **kw)
             total += loss.item()
             n += 1
